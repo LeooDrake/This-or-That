@@ -1,15 +1,19 @@
 {
+  "type": "module",
   "name": "this-or-that",
   "version": "1.0.0",
   "description": "An express app project by Leo, Alex and Justin.",
-  "main": "index.js",
+  "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/app.js",
+    "startmon": "nodemon ./src/app.js"
   },
   "author": "Leo,Alex & Justin",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.3.0",
     "express": "^4.18.2",
+    "mongodb": "^5.6.0",
     "nodemon": "^2.0.22"
   }
 }
