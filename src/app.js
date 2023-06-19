@@ -7,7 +7,7 @@ const apiRouter = express.Router();
 const clientRouter = express.Router();
 const port = process.env.PORT || 3001;
 
-const mongoClient = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING);
+export const mongoClient = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING);
 
 const defaultCollectionVal = [
     {asdf: "this is a test entry 1"},
