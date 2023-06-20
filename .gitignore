@@ -1,4 +1,8 @@
 # from https://github.com/github/gitignore/blob/main/Node.gitignore
+
+# mac because mac why not
+.DS_Store
+
 # Logs
 logs
 *.log

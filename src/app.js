@@ -8,42 +8,41 @@ const app = express();
 const apiRouter = express.Router();
 const clientRouter = express.Router();
 const port = process.env.PORT || 3001;
-// app.use(express.Router())
-const mongoClient = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING); 
+
+const mongoClient = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING);
 
 const defaultCollectionVal = [
     {asdf: "this is a test entry 1"},
     {asdf: "this is a test entry 2"},
 ];
+
 var gTestCollection;
+var gUsersCollection;
 
-
-// mongoClient.connect()
-//     .then(_ => {
-//         const db = mongoClient.db("test");
-//         gTestCollection = db.collection("test");
-//         console.log('runs')
-//     })
-//     .catch(error => {
-//         console.log(error);
-//     })
+mongoClient.connect()
+    .then(_ => {
+        let db = mongoClient.db("test");
+        gTestCollection = db.collection("test");
+        console.log('runs')
+    })
+    .catch(error => {
+        console.log(error);
+    })
 
 apiRouter.use(express.json());
 
-let usersCollection;
-let db;
 
 mongoClient.connect().
 then(response=>{
 
-    db = mongoClient.db('users')
-    usersCollection = db.collection('usersCollection')
-    console.log(`inside mongo connect:${usersCollection}`)
+    let db = mongoClient.db('test')
+    gUsersCollection = db.collection('users')
+    console.log(`inside mongo connect:${gUsersCollection}`)
 
-    usersCollection.find().toArray().           // basic json layout for db w/ some dummy data.
+    gUsersCollection.find().toArray().       // basic json layout for db w/ some dummy data.
     then(documents =>{
         if(documents.length <1){
-            usersCollection.insertOne(
+            gUsersCollection.insertOne(
                 { name: "random" ,username: 'random1', hashedpassword: "this will be hashed" }
               )
         }
@@ -55,17 +54,17 @@ then(response=>{
 
 
                                                 // basic get route users collection
-apiRouter.get('/api/users',(request,response)=>{
-    console.log(`inside get:${usersCollection}`)
+apiRouter.get('/users',(request,response)=>{
+    console.log(`inside get:${gUsersCollection}`)
 
-    usersCollection.find().toArray().   // make find once working
+    gUsersCollection.find().toArray().   // make find once working
     then(documents =>{
 
         response.json(documents)
     })
-})
+    })
 
-apiRouter.post('/api/users',(request,response)=>{
+apiRouter.post('/users',(request,response)=>{
     console.log(`body : ${request.body}`)
     try{
 
@@ -79,7 +78,7 @@ apiRouter.post('/api/users',(request,response)=>{
             })
             return
         }
-        usersCollection.findOne({username: request.body.username}).then(_response=>{
+        gUsersCollection.findOne({username: request.body.username}).then(_response=>{
 
             if (_response != null){
             response.status(400).json({
@@ -98,7 +97,7 @@ apiRouter.post('/api/users',(request,response)=>{
         }
         console.log(`information: ${userInformation}`)
     
-        usersCollection.insertOne(userInformation).
+        gUsersCollection.insertOne(userInformation).
         then((resp)=>{
         response.json({"message": "success"})
         })
@@ -137,6 +136,7 @@ clientRouter.use(express.static("./src/client"));
 // app.use("api/users",router);    // imported from userApi.JS
 app.use("/", clientRouter);
 app.use("/api", apiRouter);
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
 })
