@@ -14,13 +14,14 @@ import bcrypt from "bcrypt";
 import express from "express";
 import { mongoClient } from "../app";
 
-export const router = express.Router()                 // router for http operations to be used on
+const router = express.Router()                 // router for http operations to be used on
 
 mongoClient.connect().
 then(response=>{
 
     const db = mongoClient.db('users')
     let usersCollection = db.collection('users')
+    console.log(`inside mongo connect:${usersCollection}`)
 
     usersCollection.find().toArray().           // basic json layout for db w/ some dummy data.
     then(documents =>{
@@ -38,6 +39,8 @@ then(response=>{
 
                                                 // basic get route users collection
 router.get('/',(request,response)=>{
+    console.log(`inside get:${usersCollection}`)
+
     usersCollection.find().toArray().
     then(documents =>{
 
