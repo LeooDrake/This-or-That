@@ -1,13 +1,14 @@
 import express from "express";
 import { MongoClient } from "mongodb";
 import 'dotenv/config';
+import {router} from "./utils/userApi.js";
 
 const app = express();
 const apiRouter = express.Router();
 const clientRouter = express.Router();
 const port = process.env.PORT || 3001;
 
-const mongoClient = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING);
+export const mongoClient = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING);
 
 const defaultCollectionVal = [
     {asdf: "this is a test entry 1"},
@@ -48,6 +49,7 @@ apiRouter.get("/test-collection", async (_, response) => {
 });
 
 clientRouter.use(express.static("./src/client"));
+app.use("api/users",router);    // imported from userApi.JS
 app.use("/", clientRouter);
 app.use("/api", apiRouter);
 app.listen(port, () => {
