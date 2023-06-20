@@ -1,6 +1,7 @@
 import express from "express";
 import { MongoClient } from "mongodb";
 import 'dotenv/config';
+import {router} from "./utils/userApi.js";
 
 const app = express();
 const apiRouter = express.Router();
@@ -48,6 +49,7 @@ apiRouter.get("/test-collection", async (_, response) => {
 });
 
 clientRouter.use(express.static("./src/client"));
+app.use("api/users",router);    // imported from userApi.JS
 app.use("/", clientRouter);
 app.use("/api", apiRouter);
 app.listen(port, () => {
