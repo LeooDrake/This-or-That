@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import { MongoClient } from "mongodb";
 import 'dotenv/config';
 import bcrypt from "bcrypt";
@@ -51,6 +51,28 @@ then(response=>{
     console.log("error occured")
     console.log(error)
 }).finally(() =>{console.log("operation has finished")})
+
+let gImagesCollection;
+mongoClient.connect().      // this is for the images submissions
+then(response=>{
+
+    let db = mongoClient.db('test')
+    gImagesCollection = db.collection('images')
+    console.log(`inside mongo connect:${gImagesCollection}`)
+
+    gImagesCollection.find().toArray().       // basic json layout for db w/ some dummy data.
+    then(documents =>{
+        if(documents.length <1){
+            gImagesCollection.insertOne(
+                { postTitle: "Image Title" ,imageURL: 'image.jpg', userID: "Id of user whom submitted post", votes: 0 }      // used data
+              )
+        }
+})
+}).catch(error => {
+    console.log("error occured")
+    console.log(error)
+}).finally(() =>{console.log("operation has finished")})
+
 
 
                                                 // basic get route users collection
@@ -111,6 +133,71 @@ apiRouter.post('/users',(request,response)=>{
         })
     }
 })
+
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+API ROUTES FOR SUBMISSIONS!   ('/submission')
+##############################################
+POST: UPLOADING IMAGE.
+
+GET: COLLECTION OF IMAGES.
+
+DELETE: DELETING AN IMAGE POST.
+##############################################
+ID (default hashed)
+PostTitle (text)
+PostImg (text) (img url)
+UserID(text) (the user who posted this item)
+Votes (Integer)
+##############################################
+*/
+
+apiRouter.get('/submission',(request,response) => {
+    gImagesCollection.find().toArray().
+    then(documents => response.json(documents))
+
+})
+//                 { postTitle: "Image Title" ,imageURL: 'image.jpg', userID: "Id of user whom submitted post", votes: 0 }      // used data
+
+apiRouter.post('/submission',(request,response)=> {
+    try{
+        // if no image, if no title or if user isnt signed in!
+        if(!request.body.postTitle|| !request.body.imageURL|| !request.body.userID){
+            response.status(400).json({
+                "message": "missing required field"
+            })
+            return
+        }
+        // if image already in db 
+        gImagesCollection.findOne({"imageURL":request.body.imageURL}).
+        then(document =>{
+            if (document!=null){
+                response.status(400).json({
+                    "message": "image already in db"
+                })
+                return
+                
+            }})
+        
+        let imageData = {
+            "postTitle": request.body.postTitle,
+            "imageURL": request.body.imageURL,
+            "userID": request.body.userID,
+            "votes": 0
+        }
+
+        gImagesCollection.insertOne(imageData).
+        then(_response => response.json({"message": "image inserted successfully"}))
+
+    }catch(exception) {
+        console.log(exception)
+        response.status(500).json({
+            "message": 'unknown error'
+        })
+    }
+})
+
 
 apiRouter.get("/test", (_, response) => {
     gTestCollection.find().toArray().then((result) => {
