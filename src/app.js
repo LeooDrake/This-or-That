@@ -241,6 +241,31 @@ apiRouter.put('/submission/:id',(request,response)=>{
 
 })
 
+/*
+db.collection.updateOne(
+   { _id: ObjectId("document_id") },
+   { $set: { field1: "new_value1", field2: "new_value2" } }
+)
+
+*/
+
+apiRouter.patch('/submission/:id',(request,response)=>{
+    var imageID = {_id: new ObjectId(request.params.id)}
+
+    gImagesCollection.findOne(imageID).
+    then(document => {
+        var oldVotes = document.votes
+        var currentVotes = {$set: {votes: oldVotes+=1}}
+
+        gImagesCollection.updateOne(imageID, currentVotes).
+        then(_response_ =>{ 
+
+            response.json({'message':`successfully updated${request.params.id}`})
+        })
+    })
+
+})
+
 apiRouter.get("/test", (_, response) => {
     gTestCollection.find().toArray().then((result) => {
         response.json(result);
