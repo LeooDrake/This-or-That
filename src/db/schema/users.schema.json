@@ -1,0 +1,30 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "title": "Users Schema Validator",
+    "description": "All user accounts registered on this site",
+    "required": ["_id", "name", "username", "password_hash"],
+    "properties": {
+      "_id": { "bsonType": "objectId" },
+      "username": {
+        "bsonType": "string",
+        "minLength": 3,
+        "maxLength": 64,
+        "description": "(unique index) 'username' must be a string (3 to 64 chars) and is required. This should be unique and enforced in the collection constructor, not here."
+      },
+      "name": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 64,
+        "description": "'name' must be a string (1 to 64 chars) and is required"
+      },
+      "password_hash": {
+        "bsonType": "string",
+        "minLength": 60,
+        "maxLength": 60,
+        "description": "'password_hash' must be string (bcrypt64 hash) and is required"
+      }
+    },
+    "additionalProperties": false
+  }
+}
