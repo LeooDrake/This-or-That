@@ -1,0 +1,24 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "title": "Leaderboard Schema Validator",
+    "description": "Leaderboard of submissions. Caching the related objects to avoid re-querying each time.",
+    "required": ["rank", "user", "submission"],
+    "properties": {
+      "rank": {
+        "bsonType": "int",
+        "minimum": 1,
+        "description": "(unique index) 'rank' must be an int and is required. This should be unique and enforced in the collection constructor, not here."
+      },
+      "user": {
+        "bsonType": "object",
+        "description": "'user' is required. This must be a 'users' type (type assertation should be inherited and not enforced here)"
+      },
+      "submission": {
+        "bsonType": "object",
+        "description": "'submission' is required. This must be a 'submissions' type (type assertation should be inherited and not enforced here)"
+      }
+    },
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "title": "Submissions Schema Validator",
+    "description": "User submissions of images (imageurl only for now)",
+    "required": ["title", "image_url", "user_id", "total_votes"],
+    "properties": {
+      "title": {
+        "bsonType": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "description": "'title' must be a string (1 to 128 chars) and is required"
+      },
+      "image_url": {
+        "bsonType": "string",
+        "pattern": "^https:\/\/[^ ]+$",
+        "maxLength": 2048,
+        "description": "'image_url' must be a string with 'https://<2040 char limit>' and is required"
+      },
+      "user_id": {
+        "bsonType": "objectId",
+        "description": "'user_id' must be an objectId and is required"
+      },
+      "total_votes": {
+        "bsonType": "int",
+        "minimum": 0,
+        "description": "'total_votes' must be int (int32) and is required"
+      }
+    },
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,3 @@
+https://www.mongodb.com/docs/manual/reference/bson-types/
+https://www.mongodb.com/docs/manual/core/schema-validation/specify-json-schema/
+https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00
