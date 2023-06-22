@@ -1,11 +1,10 @@
-import { MongoClient } from "mongodb";
-import 'dotenv/config';
-
+import { mongoClient } from "./config/mongoClient.js";
+import { DB_NAME } from "./config/dbname.js";
 class Mongo{
     constructor(){
-        this.client = new MongoClient(process.env.MONGO_DB_CONNECTION_STRING);
-        this.db = this.client.db;
+        this.client = mongoClient;
+        this.db = this.client.db(DB_NAME);
     }
 }
 
-export const mongoCon = new Mongo();
+export const mongoConn = new Mongo();
