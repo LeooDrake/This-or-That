@@ -1,4 +1,4 @@
-function renderGame() {
+export default function renderGame() {
     const page = document.getElementById("page");
     const heading = document.createElement("h1");
     heading.textContent = "THIS IS THE MAIN GAME DEALY";
