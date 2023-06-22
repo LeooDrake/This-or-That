@@ -1,7 +1,6 @@
-import renderHeader from "./components/header.js";
-import renderLogin from "./components/login.js";
-import renderAbout from "./components/about.js";
+import renderHeader from "./components/onload/header.js";
+import renderNav from "./components/onload/nav.js";
 
 renderHeader();
-renderAbout();
-renderLogin();
+renderNav(); // This creates buttons with onclicks that uses above stuff;
+

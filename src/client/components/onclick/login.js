@@ -1,4 +1,4 @@
-export default function renderLogin() {
+function renderLogin() {
     let page = document.getElementById("page");
     let heading = document.createElement("h1");
     heading.textContent = "Login";
@@ -27,3 +27,5 @@ export default function renderLogin() {
         });
     });      
 }
+
+console.log("LOGIN!!!")
