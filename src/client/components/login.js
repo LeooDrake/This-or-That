@@ -5,8 +5,8 @@ function renderLoginForm() {
     heading.textContent = "Login";
     const form = document.createElement("form");
     form.innerHTML = `
-        <label for="email">Email: </label>
-        <input type="email" name="email">
+        <label for="username">Username: </label>
+        <input type="text" name="username">
         <label for="password">Password: </label>
         <input type="password" name="password">
         <input type="submit">
@@ -18,7 +18,7 @@ function renderLoginForm() {
         const formData = new FormData(form);
 
         const data = {
-            email: formData.get("email"),
+            username: formData.get("username"),
             password: formData.get("password"),
         };
         
