@@ -4,31 +4,37 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <title>This or That</title>
-        <meta name="description" content="ASDF">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./styles.css">
-        <script src='./components/header.js'></script>
-        <script src='./components/about.js'></script>
-        <script src='./components/game.js'></script>
-        <script src='./components/login.js'></script>
-        <script src='./components/logout.js'></script>
-        <script src='./components/signup.js'></script>
-        <script defer type = "module" src="./components/initialise.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>This or That</title>
+    <meta name="description" content="This or That" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+      />
+      <link rel="stylesheet" href="./styles.css" />
+      <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     </head>
     <body class="px-5" data-bs-theme="dark">
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <header id="header-nav"></header>
+        <header id="header"></header>
+        <nav id="nav"></nav>
         <section id="page" class="content">
-        <h4>This is working</h4>
+            <h4>This is working</h4>
         </section>
-        <script type="module" src="./index.js" async defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    </body>
+        <script src="./components/onclick/about.js"></script>
+        <script src='./components/onclick/signup.js'></script>
+        <script src="./components/onclick/login.js"></script>
+        <script src='./components/onclick/logout.js'></script>
+        <script src='./components/game.js'></script>
+        <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"
+        ></script>
+    <script async defer type="module" src="./index.js"></script>
+  </body>
 </html>

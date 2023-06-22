@@ -1,9 +1,8 @@
-
-function renderLoginForm() {
-    const page = document.getElementById("page");
-    const heading = document.createElement("h1");
+function renderLogin() {
+    let page = document.getElementById("page");
+    let heading = document.createElement("h1");
     heading.textContent = "Login";
-    const form = document.createElement("form");
+    let form = document.createElement("form");
     form.innerHTML = `
         <label for="username">Username: </label>
         <input type="text" name="username">
@@ -15,9 +14,9 @@ function renderLoginForm() {
 
     form.addEventListener("submit", (event) => {
         event.preventDefault()
-        const formData = new FormData(form);
+        let formData = new FormData(form);
 
-        const data = {
+        let data = {
             username: formData.get("username"),
             password: formData.get("password"),
         };
@@ -28,3 +27,5 @@ function renderLoginForm() {
         });
     });      
 }
+
+console.log("LOGIN!!!")

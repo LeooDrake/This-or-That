@@ -1,4 +1,3 @@
-
 function renderSignUpForm() {
     const page = document.getElementById("page");
     const heading = document.createElement("h1");

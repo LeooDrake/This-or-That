@@ -1,4 +1,3 @@
-
 function logoutSite() {
     axios.delete("/api/session").then((_) => {
         console.log("this thing just logged out")
