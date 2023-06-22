@@ -3,8 +3,9 @@
     "bsonType": "object",
     "title": "Leaderboard Schema Validator",
     "description": "Leaderboard of submissions. Caching the related objects to avoid re-querying each time.",
-    "required": ["rank", "user", "submission"],
+    "required": ["_id", "rank", "user", "submission"],
     "properties": {
+      "_id": { "bsonType": "objectId" },
       "rank": {
         "bsonType": "int",
         "minimum": 1,

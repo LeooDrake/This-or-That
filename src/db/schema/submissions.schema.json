@@ -3,8 +3,9 @@
     "bsonType": "object",
     "title": "Submissions Schema Validator",
     "description": "User submissions of images (imageurl only for now)",
-    "required": ["title", "image_url", "user_id", "total_votes"],
+    "required": ["_id", "title", "image_url", "user_id", "total_votes"],
     "properties": {
+      "_id": { "bsonType": "objectId" },
       "title": {
         "bsonType": "string",
         "minLength": 1,

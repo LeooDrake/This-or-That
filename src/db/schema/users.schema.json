@@ -3,8 +3,9 @@
     "bsonType": "object",
     "title": "Users Schema Validator",
     "description": "All user accounts registered on this site",
-    "required": ["name", "username", "password_hash"],
+    "required": ["_id", "name", "username", "password_hash"],
     "properties": {
+      "_id": { "bsonType": "objectId" },
       "username": {
         "bsonType": "string",
         "minLength": 3,
