@@ -1,10 +1,6 @@
-function renderHeader() {
-    setHeaderHTML();
-}
-
-function setHeaderHTML() {
-    const header = document.getElementById("header-nav");
-    header.innerHTML = 
+export default function renderHeader() {
+  let header = document.getElementById("header-nav");
+  header.innerHTML = 
     `
       <h1>This or That</h1>
         <nav class="navbar navbar-expand-lg">
@@ -13,6 +9,6 @@ function setHeaderHTML() {
           <a class="btn btn-success mx-2" href="#" onClick="DoLeaderboard()">LEADERBOARD</a>
           <a class="btn btn-success mx-2" href="#" onClick="DoUserProfile()">PROFILE</a>
         </nav>
-    `;
-
+    `
+    ;
 }
