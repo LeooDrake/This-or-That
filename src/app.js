@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import { MongoClient } from "mongodb";
+import { MongoClient,ObjectId } from "mongodb";
 import 'dotenv/config';
 import bcrypt from "bcrypt";
 // import {router} from "./utils/userApi.js";
@@ -15,7 +15,7 @@ const defaultCollectionVal = [
     {asdf: "this is a test entry 1"},
     {asdf: "this is a test entry 2"},
 ];
-// hello
+
 var gTestCollection;
 var gUsersCollection;
 
@@ -64,7 +64,7 @@ then(response=>{
     then(documents =>{
         if(documents.length <1){
             gImagesCollection.insertOne(
-                { postTitle: "Image Title" ,imageURL: 'image.jpg', userID: "Id of user whom submitted post", votes: 0 }      // used data
+                { postTitle: "Image Title" ,imageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HelloWorld.svg/2560px-HelloWorld.svg.png', userID: "Id of user whom submitted post", votes: 0 } // used data - JL added proper url
               )
         }
 })
@@ -136,21 +136,31 @@ apiRouter.post('/users',(request,response)=>{
 
 
 /*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-API ROUTES FOR SUBMISSIONS!   ('/submission')
-##############################################
-POST: UPLOADING IMAGE.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    API ROUTES FOR SUBMISSIONS!   ('/submission')
+    ##############################################
+    POST: UPLOADING IMAGE.
 
-GET: COLLECTION OF IMAGES.
+    GET: COLLECTION OF IMAGES.
 
-DELETE: DELETING AN IMAGE POST.
-##############################################
-ID (default hashed)
-PostTitle (text)
-PostImg (text) (img url)
-UserID(text) (the user who posted this item)
-Votes (Integer)
-##############################################
+    DELETE: DELETING AN IMAGE POST.
+
+    UPDATE: updating url or name.
+    (have extreme care when submitting data into this route,
+    im thinking we should make
+    votes go to 0 if img url is changed but not otherwise.)
+    ##############################################
+    ID (default hashed)
+    PostTitle (text)
+    PostImg (text) (img url)
+    UserID(text) (the user who posted this item)
+    Votes (Integer)
+    ##############################################
+    NOTES:
+    when being used by the front end *ID* must be 
+    made sure that it is infact owned by
+    the same user ID before using.
+    ##############################################
 */
 
 apiRouter.get('/submission',(request,response) => {
@@ -158,7 +168,6 @@ apiRouter.get('/submission',(request,response) => {
     then(documents => response.json(documents))
 
 })
-//                 { postTitle: "Image Title" ,imageURL: 'image.jpg', userID: "Id of user whom submitted post", votes: 0 }      // used data
 
 apiRouter.post('/submission',(request,response)=> {
     try{
@@ -198,6 +207,39 @@ apiRouter.post('/submission',(request,response)=> {
     }
 })
 
+
+apiRouter.delete('/submission/:id',(request,response)=>{
+    /* 
+    "_id" is how id is stored in a mongoDB
+    The significance of using ObjectId in this code is to ensure that
+    the queried document has a unique identifier and
+    to make sure that the query is accurate and specific.
+    */
+    var query = { _id: new ObjectId(request.params.id)}
+
+    gImagesCollection.deleteOne(query).
+    then(_response_ =>{
+        response.json('successfully deleted one image collection')
+    })
+})
+
+
+apiRouter.put('/submission/:id',(request,response)=>{
+    var imageID = { _id: new ObjectId(request.params.id)}
+    // HAVE CARE WHEN INPUTTING SUCH DATA. 
+    var updatedImageData = {$set:{ 
+        postTitle: request.body.postTitle,
+        imageURL: request.body.imageURL,
+        userID: request.body.userID,
+        votes: request.body.votes
+    }
+    }
+    gImagesCollection.updateOne(imageID,updatedImageData).
+    then(_response_ => {
+        response.json('successfully updated one collection')
+    })
+
+})
 
 apiRouter.get("/test", (_, response) => {
     gTestCollection.find().toArray().then((result) => {
