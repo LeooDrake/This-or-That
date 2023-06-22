@@ -1,1 +1,2 @@
 renderHeader();
+renderGame();

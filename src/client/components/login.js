@@ -24,7 +24,7 @@ function renderLoginForm() {
         
         axios.post("/api/session", data).then((_) => {
             renderHeader();
-            renderChallengeList();
+            renderGame(); // whatever we call the game
         });
     });      
 }

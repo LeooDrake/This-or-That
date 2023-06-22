@@ -6,7 +6,7 @@ function setHeaderHTML() {
     const header = document.getElementById("header-nav");
     header.innerHTML = 
     `
-      <h1>This or That</h1>
+      <a class="link-light link-underline-opacity-25 link-underline-opacity-100-hover" href="/"><h1>This or That</h1></a>
         <nav class="navbar navbar-expand-lg">
           <a class="btn btn-success mx-2" href="#" onClick="renderLoginForm()">LOG IN</a>
           <a class="btn btn-success mx-2" href="#" onClick="renderAboutPage()">ABOUT</a>
