@@ -12,6 +12,8 @@ function setHeaderHTML() {
           <a class="btn btn-success mx-2" href="#" onClick="renderAboutPage()">ABOUT</a>
           <a class="btn btn-success mx-2" href="#" onClick="DoLeaderboard()">LEADERBOARD</a>
           <a class="btn btn-success mx-2" href="#" onClick="DoUserProfile()">PROFILE</a>
+          <a class="btn btn-success mx-2" href="#" onClick="renderSignUpForm()">SIGN UP</a>
+          <a class="btn btn-success mx-2" href="#" onClick="logoutSite()">LOG OUT</a>
         </nav>
     `;
 

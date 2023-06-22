@@ -15,7 +15,7 @@ const defaultCollectionVal = [
     {asdf: "this is a test entry 1"},
     {asdf: "this is a test entry 2"},
 ];
-// hello
+
 var gTestCollection;
 var gUsersCollection;
 
@@ -64,7 +64,7 @@ then(response=>{
     then(documents =>{
         if(documents.length <1){
             gImagesCollection.insertOne(
-                { postTitle: "Image Title" ,imageURL: 'image.jpg', userID: "Id of user whom submitted post", votes: 0 }      // used data
+                { postTitle: "Image Title" ,imageURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HelloWorld.svg/2560px-HelloWorld.svg.png', userID: "Id of user whom submitted post", votes: 0 } // used data - JL added proper url
               )
         }
 })
