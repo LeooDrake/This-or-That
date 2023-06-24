@@ -1,27 +1,29 @@
-// DbConn constructor
-import DbConn from "./config/DbConn.js";
-
+import DbConn from "./config/DbConn.js";    // DbConn constructor
+import modelFactory from "../utils/modelFactory.js";    // model creation helper
 // Schemas definitions
-import {Users} from "./schema/Users.js";
-import {Submissions} from "./schema/Submissions.js";
-import {Leaderboard} from "./schema/Leaderboard.js";
+import {usersSchema} from "./schema/usersSchema.js";
+import {submissionsSchema} from "./schema/submissionsSchema.js";
+import {leaderboardSchema} from "./schema/leaderboardSchema.js";
+
 class AppDb extends DbConn{
     constructor(){
         super();
-        this.models = {};
-        this.connected.then(()=>{this.buildModels()});
+        this.ready = this._configure();
     }
-
-    buildModels(){
+    async _configure(){
+        await this._connected;
+        this._assignModels();
+        return true;
+    }
+    _assignModels(){
         this.models = {
-            Users: Users.modelFactory(this.db),
-            Submissions: Submissions.modelFactory(this.db),
-            Leaderboard: Leaderboard.modelFactory(this.db)
+            Users: modelFactory(this.db, 'Users', usersSchema),
+            Submissions: modelFactory(this.db, 'Submissions', submissionsSchema),
+            Leaderboard: modelFactory(this.db, 'Leaderboard', leaderboardSchema)
         }
     }
 }
 
 const appDb = new AppDb();
-await appDb.init();
 await appDb.connected;
 export { appDb };

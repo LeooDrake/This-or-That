@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-var schema = new mongoose.Schema({
+export const submissionsSchema = new mongoose.Schema({
     title: {
         type: String,
         minLength: 1,
@@ -30,12 +30,3 @@ var schema = new mongoose.Schema({
         }
     }
 }, {autoIndex: true});
-
-var modelFactory = function(mongoose){
-    return mongoose.model("Submissions", schema)
-}
-
-export const Submissions = {
-    schema,
-    modelFactory
-}

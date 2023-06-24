@@ -1,13 +1,14 @@
 export function errorHandler(error, doThrow=false){
-    let e;
-    if(error instanceof Error){
-        e = error;
-    }else{
-        e = new Error(e);
-    }
+    let e = (typeof error == 'string') ? new Error(error): error;
     if(doThrow){
         throw e;
     }else{
         console.error(e);
     }
+}
+
+export function error500(error){
+    response.status(500).json({"message": 'unknown error', error});
+    errorHandler(error);
+    return
 }
