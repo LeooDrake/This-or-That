@@ -1,28 +1,66 @@
+
+
+
+
 export default function renderGame() {
+    var thatImage;
+    var thisImage;
     const page = document.getElementById("page");
     const heading = document.createElement("h1");
     heading.textContent = "THIS IS THE MAIN GAME DEALY";
     const content = document.createElement("div"); // create it 
     content.classList.add("my-4") // add the class and IDs
     // fill it below. picsum.photos generates random images!
-    content.innerHTML = `
-    <div class="container">
-        <div class="row">
-            <div class="col-5">
-                <h2>THIS</h2>
-                <a href="/vote/ID"><img class="rounded-circle border border-success" src="https://picsum.photos/400/400?random=1"></a>
-            </div>
-            <div class="col-2"><p>VS</p></div>
-            <div class="col-5">
-                <h2>THAT</h2>
-                <a href="/vote/ID"><img class="rounded border border-warning" src="https://picsum.photos/400/400?random=2"></a>
+
+    axios.get('/api/submission').
+    then(documents =>{
+        //console.log(documents)
+        let thatRandomIndex =Math.floor(Math.random()*documents.data.length)
+        let thisRandomIndex =Math.floor(Math.random()*documents.data.length)
+        //console.log(Object.values(documents.data))
+        //console.log(documents.data[thatRandomIndex])
+        thatImage = documents.data[thatRandomIndex]
+        thisImage = documents.data[thisRandomIndex]
+        content.innerHTML = `
+        <div class="container">
+            <div class="row">
+                <div class="col-5" id="this">
+                    <h2>THIS</h2>
+                    <img style="width:400px" style="height:400px" src=${thisImage.imageURL} id="${thisImage._id}")"></img>
+                </div>
+                <div class="col-2"><p>VS</p></div>
+                <div class="col-5" id="that">
+                    <h2>THAT</h2>
+                    <img style="width:400px" style="height:400px" src=${thatImage.imageURL} id="${thatImage._id}"></img>
+                </div>
             </div>
         </div>
-    </div>
-    `;
-    // i use a href above but we should prob make it an onclick or something instead
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("my-4");
-    page.replaceChildren(heading, errorDiv, content);
+        `;
+        const errorDiv = document.createElement("div");
+        errorDiv.classList.add("my-4");
+        page.replaceChildren(heading, errorDiv, content);
 
+        console.log(document.querySelectorAll('img'))
+        document.querySelectorAll('img').forEach(element =>{
+            element.addEventListener(('click'),(event)=>{
+                console.log('click')
+                console.log(event.target.id)
+                axios.patch(`/api/submission/${event.target.id}`)
+        
+        })
+        
+        })
+
+    })
+    /*
+    ############################################################
+                   # 2 random imgs & Voting #
+    ###########################################################
+    currently 2 random photos are being grabbed from picsum.
+    IDEALLY: using api to get img collection and 
+    use math.rand to get random. ID and img src needed. 
+    ############################################################
+
+
+    */
 }
