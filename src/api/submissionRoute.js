@@ -45,7 +45,7 @@ router.route('/submission')
         try{
            let document = await Submissions.find({}).exec();
            response.status(200).json(document);
-        }catch(e){error500(e)}
+        }catch(e){error500(e,response)}
     })
     .post(async (request,response)=>{
         try{
@@ -72,7 +72,7 @@ router.route('/submission')
             let submission = new Submissions(imageData);
             await submission.save();
             response.status(200).json({"message": "submission success"})
-        }catch(e){error500(e)}
+        }catch(e){error500(e,response)}
     })
 ;
 
@@ -92,7 +92,7 @@ router.route('/submission/:id')
             }else{
                 response.status(200).json('successfully deleted submission')
             }
-        }catch(e){error500(e)}
+        }catch(e){error500(e,response)}
     })
     .put(async (request,response)=>{
         try{
@@ -113,7 +113,7 @@ router.route('/submission/:id')
             }
             await Submissions.findOneAndUpdate({_id: id}, {$set: incoming}, opts).exec();
             response.status(200).json('successfully updated one collection');
-        }catch(e){error500(e)}
+        }catch(e){error500(e,response)}
     })
 ;
 
@@ -125,7 +125,7 @@ router.route('/submission/upvote/:id')
             submission.total_votes = Number(submission.total_votes) + 1;
             await submission.save();
             response.status(200).json({'message':`successfully upvoted${request.params.id}`});
-        }catch(e){error500(e)}
+        }catch(e){error500(e,response)}
     })
 ;
 

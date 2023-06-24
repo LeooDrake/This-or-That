@@ -6,7 +6,8 @@
   "main": "./src/app.js",
   "scripts": {
     "start": "node ./src/app.js",
-    "startmon": "nodemon ./src/app.js"
+    "startmon": "nodemon ./src/app.js",
+    "startmon2": "nodemon ./src/app2.js"
   },
   "author": "Leo,Alex & Justin",
   "license": "MIT",

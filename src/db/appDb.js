@@ -4,6 +4,7 @@ import modelFactory from "../utils/modelFactory.js";    // model creation helper
 import {usersSchema} from "./schema/usersSchema.js";
 import {submissionsSchema} from "./schema/submissionsSchema.js";
 import {leaderboardSchema} from "./schema/leaderboardSchema.js";
+import { testSchema } from "./schema/testSchema.js";
 
 class AppDb extends DbConn{
     constructor(){
@@ -17,6 +18,7 @@ class AppDb extends DbConn{
     }
     _assignModels(){
         this.models = {
+            Test: modelFactory(this.db, 'Test', testSchema),
             Users: modelFactory(this.db, 'Users', usersSchema),
             Submissions: modelFactory(this.db, 'Submissions', submissionsSchema),
             Leaderboard: modelFactory(this.db, 'Leaderboard', leaderboardSchema)
