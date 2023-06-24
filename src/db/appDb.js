@@ -1,10 +1,27 @@
-import { dbConn } from "./config/dbConn.js";
-import { DB_NAME } from "./config/dbname.js";
+// DbConn constructor
+import DbConn from "./config/DbConn.js";
 
-class AppDb{
+// Schemas definitions
+import {Users} from "./schema/Users.js";
+import {Submissions} from "./schema/Submissions.js";
+import {Leaderboard} from "./schema/Leaderboard.js";
+class AppDb extends DbConn{
     constructor(){
-        this.dbConn = dbConn;
-        this.db = dbConn.useDb(DB_NAME, {useCache: true});
-    }   
+        super();
+        this.models = {};
+        this.connected.then(()=>{this.buildModels()});
+    }
+
+    buildModels(){
+        this.models = {
+            Users: Users.modelFactory(this.db),
+            Submissions: Submissions.modelFactory(this.db),
+            Leaderboard: Leaderboard.modelFactory(this.db)
+        }
+    }
 }
-export const appDb = new AppDb();
+
+const appDb = new AppDb();
+await appDb.init();
+await appDb.connected;
+export { appDb };
