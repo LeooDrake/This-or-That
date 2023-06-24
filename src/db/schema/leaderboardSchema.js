@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 
 // Stores the top X submissions to avoid full-querying everytime.
-var schema = new mongoose.Schema({
+export const leaderboardSchema = new mongoose.Schema({
     rank: {
         type: Number,
         min: 1,
@@ -22,12 +22,3 @@ var schema = new mongoose.Schema({
         required: true
     }
 });
-
-var modelFactory = function(mongoose){
-    return mongoose.model("Leaderboard", schema)
-}
-
-export const Leaderboard = {
-    schema,
-    modelFactory
-}
