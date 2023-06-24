@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-export const usersSchema = new mongoose.Schema({
+var schema = new mongoose.Schema({
     username: {
         type: String,
         minLength: 3,
@@ -22,3 +22,12 @@ export const usersSchema = new mongoose.Schema({
         required: true
     }
 }, { autoIndex: true })
+
+var modelFactory = function(mongoose){
+    return mongoose.model("Users", schema)
+}
+
+export const Users = {
+    schema,
+    modelFactory
+}
