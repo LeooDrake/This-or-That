@@ -20,7 +20,7 @@ router.route('/users')
             let document = await Users.find({}).exec();
             response.status(200).json(document);
         }
-        catch(e){error500(e)}
+        catch(e){error500(e,response)}
     })
     .post(async (request,response)=>{
         /*
@@ -54,7 +54,7 @@ router.route('/users')
             let newUser = new Users(incoming);
             await newUser.save();
             response.status(200).json({"message": "success"});
-        }catch(e){error500(e)}
+        }catch(e){error500(e,response)}
     })
 ;
 

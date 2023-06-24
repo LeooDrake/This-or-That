@@ -7,7 +7,7 @@ export function errorHandler(error, doThrow=false){
     }
 }
 
-export function error500(error){
+export function error500(error,response){
     response.status(500).json({"message": 'unknown error', error});
     errorHandler(error);
     return
