@@ -1,7 +1,3 @@
-
-
-
-
 export default function renderGame() {
     var thatImage;
     var thisImage;
@@ -11,27 +7,26 @@ export default function renderGame() {
     const content = document.createElement("div"); // create it 
     content.classList.add("my-4") // add the class and IDs
     // fill it below. picsum.photos generates random images!
-
+    const randPop = function(arr){
+        return arr.splice(Math.floor(Math.random()*arr.length), 1)[0];
+    }
     axios.get('/api/submission').
-    then(documents =>{
-        //console.log(documents)
-        let thatRandomIndex =Math.floor(Math.random()*documents.data.length)
-        let thisRandomIndex =Math.floor(Math.random()*documents.data.length)
-        //console.log(Object.values(documents.data))
-        //console.log(documents.data[thatRandomIndex])
-        thatImage = documents.data[thatRandomIndex]
-        thisImage = documents.data[thisRandomIndex]
+    then(response =>{
+        let retrieved = response.data;
+        // missing default handle for retrieving < 2 images
+        let thatImage = randPop(retrieved);
+        let thisImage = randPop(retrieved);
         content.innerHTML = `
         <div class="container">
             <div class="row">
                 <div class="col-5" id="this">
-                    <h2>THIS</h2>
-                    <img style="width:400px" style="height:400px" src=${thisImage.imageURL} id="${thisImage._id}")"></img>
+                    <h2>${thisImage.title}</h2>
+                    <img style="width:400px" style="height:400px" src=${thisImage.image_url} id="${thisImage._id}")"></img>
                 </div>
                 <div class="col-2"><p>VS</p></div>
                 <div class="col-5" id="that">
-                    <h2>THAT</h2>
-                    <img style="width:400px" style="height:400px" src=${thatImage.imageURL} id="${thatImage._id}"></img>
+                    <h2>${thatImage.title}</h2>
+                    <img style="width:400px" style="height:400px" src=${thatImage.image_url} id="${thatImage._id}"></img>
                 </div>
             </div>
         </div>
@@ -40,12 +35,11 @@ export default function renderGame() {
         errorDiv.classList.add("my-4");
         page.replaceChildren(heading, errorDiv, content);
 
-        console.log(document.querySelectorAll('img'))
         document.querySelectorAll('img').forEach(element =>{
             element.addEventListener(('click'),(event)=>{
-                console.log('click')
+                console.log('clicked')
                 console.log(event.target.id)
-                axios.patch(`/api/submission/${event.target.id}`)
+                axios.patch(`/api/submission/upvote/${event.target.id}`)
         
         })
         

@@ -1,30 +1,48 @@
 /*
+    API ROUTES FOR SUBMISSIONS
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    API ROUTES FOR SUBMISSIONS!   ('/submission')
-    ##############################################
-    POST: UPLOADING IMAGE.
-
-    GET: COLLECTION OF IMAGES.
-
-    DELETE: DELETING AN IMAGE POST.
-
-    UPDATE: updating url or name.
-    (have extreme care when submitting data into this route,
-    im thinking we should make
-    votes go to 0 if img url is changed but not otherwise.)
-    ##############################################
-    ID (default hashed)
-    PostTitle (text)
-    PostImg (text) (img url)
-    UserID(text) (the user who posted this item)
-    Votes (Integer)
-    ##############################################
-    NOTES:
-    when being used by the front end *ID* must be 
-    made sure that it is infact owned by
-    the same user ID before using.
-    ##############################################
+    /submission
+        .GET({})
+            Get all submissions from db
+        .POST({ postTitle, imageURL, userID })
+            Post a new submission to store into db
+            Params: {Required: All}
+    /submission:id
+        .DELETE({})
+            Delete a submission referenced by :id from the db.
+        .PUT({ postTitle, imageURL, userID, votes })
+            Modify prop values of a submission referenced by :id in the db.
+            Params: {Required: All}
+    /submission/upvote:id
+        .PATCH({})
+            Queries for the submission referenced by :id in the db
+            then +1 to its total_vote value.
+    Params: 
+    // (Base types are described here. JSON/URL-encoded values are actually strings)
+        :id: mongoose.Types.ObjectId        // _id value of Submissions object as string.
+        postTitle: string                   // Title of submission/image
+        imageURL: string                    // URL of image ("http" is required). Duplicates not allowed
+        userID: mongoose.Types.ObjectId     // _id value of Users object.
+        votes: number                       // total_votes of submission. Integer > 0 only.
+    Notes:
+        The userID should inherit from the user owning the session.
+        The frontend is responsible for ensuring userID isn't spoofed.
 */
+/*  Discussions:
+    /submissions:id | PUT
+        Leo:
+            Exercise caution when submitting data via this route,
+            im thinking we should reset votes to 0 if imgurl is changed.
+        Alex:
+            Use-case specific routes should be made instead. We can expose this API for our own use, 
+            but I don't see any practicality in it besides as a project criteria to be ticked off.
+            Users shouldn't be allowed to modify their submission. 
+            If they want a different submission, delete and make a new one.
+    /submissions | POST
+        Alex:
+            Enforing imageURL as unique is a deterrant, not a preventative measure against dupes.
+            Do we actually want/need this enforcement?
+ */
 
 import express from "express";
 import validator from "validator";
@@ -77,12 +95,6 @@ router.route('/submission')
 ;
 
 router.route('/submission/:id')
-    /* 
-        "_id" is how id is stored in a mongoDB
-        The significance of using ObjectId in this code is to ensure that
-        the queried document has a unique identifier and
-        to make sure that the query is accurate and specific.
-    */
     .delete(async (request,response)=>{
         try{
             let id = new mongoose.Types.ObjectId(request.params.id);

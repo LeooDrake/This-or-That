@@ -19,6 +19,7 @@ export const usersSchema = new mongoose.Schema({
         type: String,
         minLength: 60,
         maxLength: 60,
-        required: true
+        required: true,
+        match: /^\$2[abxy]\$..\$.{53}$/,    // bcrypt hash output
     }
 }, { autoIndex: true })
