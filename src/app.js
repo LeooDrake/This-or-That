@@ -2,6 +2,7 @@ import express, { json } from "express";
 import { MongoClient,ObjectId } from "mongodb";
 import 'dotenv/config';
 import bcrypt from "bcrypt";
+import session from "express-session";
 // import {router} from "./utils/userApi.js";
 
 const app = express();
@@ -18,6 +19,8 @@ const defaultCollectionVal = [
 
 var gTestCollection;
 var gUsersCollection;
+
+
 
 mongoClient.connect()
     .then(_ => {
@@ -133,6 +136,72 @@ apiRouter.post('/users',(request,response)=>{
         })
     }
 })
+
+/*
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    API ROUTES FOR SESSIONS!   ('/session')
+    ##############################################
+    POST: TO CHECK AGAINST PWORD. -->  SET TO TRUE
+
+    GET: IS SESSION        --> TRUE/ FALSE
+
+    DELETE: TO SET SESSION TO NONE
+
+    ##############################################
+    NOTES:
+    prolly should not break if user doesnt exist in collection
+
+
+
+    ##############################################
+*/
+
+apiRouter.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true
+  }))
+
+apiRouter.post('/session',(request,response) =>{
+    let validPassword;
+    let user = {username: request.body.username}
+    gUsersCollection.findOne(user).
+    then(document =>{
+
+        validPassword =bcrypt.compareSync(request.body.password,document.hashedpassword)
+        console.log(document)
+
+        if (validPassword){
+            response.json({session: true})
+            request.session.id =document['_id']
+            request.session.name =document['name'];
+        }
+        else{
+            response.json({session: false})
+        }
+    })
+
+})
+
+apiRouter.get('/session',(request,response)=>{
+    if (request.session._id){
+        response.json({session:true})
+    }
+    else{
+        response.json({session:false})
+    }
+})
+
+apiRouter.delete("/session", (request, response) => {
+    console.log(`before delete ${request.session}`)
+    request.session.destroy();
+    console.log(`after delete ${request.session}`)
+    response.json({ message: "logged out successfully" });
+    });
+
+
+
+
 
 
 /*
@@ -290,6 +359,8 @@ clientRouter.use(express.static("./src/client"));
 // app.use("api/users",router);    // imported from userApi.JS
 app.use("/", clientRouter);
 app.use("/api", apiRouter);
+
+
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
