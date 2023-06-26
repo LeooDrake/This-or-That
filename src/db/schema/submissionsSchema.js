@@ -26,7 +26,7 @@ export const submissionsSchema = new mongoose.Schema({
         min: 0,
         required: true,
         validate: (val)=>{
-            return validator.isInt(val);
+            return Number.isInteger(val);
         }
     }
 }, {autoIndex: true});

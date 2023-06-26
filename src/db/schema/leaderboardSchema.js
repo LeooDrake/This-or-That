@@ -8,7 +8,7 @@ export const leaderboardSchema = new mongoose.Schema({
         min: 1,
         required: true,
         validate: (val)=>{
-            return validator.isInt(val);
+            return Number.isInteger(val);
         }
     },
     submission: {
