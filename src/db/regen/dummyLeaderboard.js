@@ -1,5 +1,8 @@
-
+import { refreshLeaderboard } from "../../utils/refreshLeaderboard.js";
+import { appDb } from "../appDb.js";
 
 export async function regenDummyLeaderboard(){
-    return;
+    await appDb.ready;
+    await refreshLeaderboard();
+    return true;
 }
