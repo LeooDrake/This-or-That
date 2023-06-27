@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import 'dotenv/config';
-import {dbName} from "../config/options.js";
+import {dbName, dbConnectionString} from "../config/options.js";
 // Schemas
 import {usersSchema} from "./schema/usersSchema.js";
 import {submissionsSchema} from "./schema/submissionsSchema.js";
@@ -12,7 +11,7 @@ class DbConn{
         this._connected = this._connect();
     }
     async _connect(){
-        this._conn = await mongoose.createConnection(process.env.MONGO_DB_CONNECTION_STRING).asPromise();
+        this._conn = await mongoose.createConnection(dbConnectionString).asPromise();
         this.db = this._conn.useDb(dbName, {useCache: true});
         return true;
     }
