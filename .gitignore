@@ -1,5 +1,9 @@
 # from https://github.com/github/gitignore/blob/main/Node.gitignore
 
+# my test stuff & unused shit 
+**/asdf.js
+asdf/
+
 # mac because mac why not
 .DS_Store
 
