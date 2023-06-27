@@ -17,14 +17,14 @@ await appDb.ready;
 const Submissions = appDb.models.Submissions;
 
 router.route('/upvote/:id')
-    .patch(async (request,response)=>{
+    .patch(async (req,res)=>{
         try{
-            var id = new mongoose.Types.ObjectId(request.params.id);
-            let submission = await Submissions.findOne({_id: id}).exec();
+            var id = new mongoose.Types.ObjectId(req.params.id);
+            let submission = await Submissions.where({_id: id}).findOne().exec();
             submission.total_votes = Number(submission.total_votes) + 1;
             await submission.save();
-            response.status(200).json({'message':`successfully upvoted${request.params.id}`});
-        }catch(e){error500(e,response)}
+            res.status(200).json({'message':`successfully upvoted${req.params.id}`});
+        }catch(e){error500(e,res)}
     })
 ;
-export default { router };
+export const upvoteRoute = router;

@@ -21,4 +21,4 @@ router.route('/leaderboard')
         }catch(e){error500(e,res)}
     })
 ;
-export default { router };
+export const leaderboardRoute = router;

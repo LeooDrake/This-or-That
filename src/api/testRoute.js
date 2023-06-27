@@ -32,4 +32,4 @@ router.route('/test')
         }catch(e){error500(e,res)}
     })
 
-export default { router };
+export const testRoute = router;

@@ -24,18 +24,18 @@ const Users = appDb.models.Users;
 router.route('/signup')
     .post(async (req,res)=>{
         try{
-            if(!request.body.name||!request.body.username||!request.body.password){
-                response.status(400).json({"message": "missing required fields"});
+            if(!req.body.name || !req.body.username || !req.body.password){
+                res.status(400).json({"message": "missing required fields"});
                 return;
             }
             // unescape
             let incoming = {
-                name: validator.unescape(request.body.name),
-                username: validator.unescape(request.body.username),
-                password: validator.unescape(request.body.password),
+                name: validator.unescape(req.body.name),
+                username: validator.unescape(req.body.username),
+                password: validator.unescape(req.body.password),
             }
             // dupe check
-            let document = await Users.where({username: request.body.username}).findOne().exec();
+            let document = await Users.where({username: req.body.username}).findOne().exec();
             if(document != null){
                 response.status(400).json({"message": "username in db"});
                 return;
@@ -47,9 +47,9 @@ router.route('/signup')
             // insert into db
             let newUser = new Users(incoming);
             await newUser.save();
-            response.status(200).json({"message": "success"});
-        }catch(e){error500(e,response)}
+            res.status(200).json({"message": "success"});
+        }catch(e){error500(e,res)}
     })
 ;
 
-export default { router };
+export const signupRoute = router;

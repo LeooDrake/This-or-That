@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import assert from "assert";
 import {appDb} from "../db/appDb.js";
 import {error500} from "../utils/errorHandler.js";
-import {randPop} from "../utils/randPop.js";
 /*
     /submissions
         .GET({})
@@ -43,91 +42,91 @@ function randPop(arr){
 }
 
 router.route('/submissions')
-    .get(async (_,response)=>{
+    .get(async (_,res)=>{
         try{
            let document = await Submissions.find({}).exec();
-           response.status(200).json(document);
-        }catch(e){error500(e,response)}
+           res.status(200).json(document);
+        }catch(e){error500(e,res)}
     })
-    .post(async (request,response)=>{
+    .post(async (req,res)=>{
         try{
             // if no image, if no title or if user isnt signed in!
-            if(!request.body.postTitle|| !request.body.imageURL|| !request.body.userID){
-                response.status(400).json({"message": "missing required field"});
+            if(!req.body.postTitle || !req.body.imageURL || !req.body.userID){
+                res.status(400).json({"message": "missing required field"});
                 return;
             }
             // if image already in db
-            let document = await Submissions.findOne({"image_url": request.body.imageURL}).exec();
+            let document = await Submissions.where({"image_url": req.body.imageURL}).findOne().exec();
             if(document != null){
                 response.status(400).json({"message": "image_url already in db"});
                 return;
             }
             // asserts
-            assert(validator.isURL(request.body.imageURL));
+            assert(validator.isURL(req.body.imageURL));
             // unescape:
             let imageData = {
-                "title": validator.unescape(request.body.postTitle),
-                "image_url": validator.unescape(request.body.imageURL),
-                "user": new mongoose.Types.ObjectId(request.body.userID),
+                "title": validator.unescape(req.body.postTitle),
+                "image_url": validator.unescape(req.body.imageURL),
+                "user": new mongoose.Types.ObjectId(req.body.userID),
                 "total_votes": 0,
             }
             let submission = new Submissions(imageData);
             await submission.save();
-            response.status(200).json({"message": "submission success"})
-        }catch(e){error500(e,response)}
+            res.status(200).json({"message": "submission success"})
+        }catch(e){error500(e,res)}
     })
 ;
 
 router.route('/submissions/:id')
-    .delete(async (request,response)=>{
+    .delete(async (req,res)=>{
         try{
-            let id = new mongoose.Types.ObjectId(request.params.id);
+            let id = new mongoose.Types.ObjectId(req.params.id);
             let result = await Submissions.findOneAndDelete({ _id: id}).exec();
             if(result == null){
-                response.status(400).json('failed to delete submission')
+                res.status(400).json('failed to delete submission')
             }else{
-                response.status(200).json('successfully deleted submission')
+                res.status(200).json('successfully deleted submission')
             }
-        }catch(e){error500(e,response)}
+        }catch(e){error500(e,res)}
     })
-    .put(async (request,response)=>{
+    .put(async (req,res)=>{
         try{
-            var id = new mongoose.Types.ObjectId(request.params.id);
+            var id = new mongoose.Types.ObjectId(req.params.id);
             // asserts
-            assert(validator.isURL(request.body.imageURL));
-            assert(validator.isInt(request.body.votes), {min: 0});
+            assert(validator.isURL(req.body.imageURL));
+            assert(validator.isInt(req.body.votes), {min: 0});
             // unescape
             var incoming = {
-                title: validator.unescape(request.body.postTitle),
-                image_url: validator.unescape(request.body.imageURL),
-                user: new mongoose.Types.ObjectId(request.body.userID),
-                total_votes: Number(request.body.votes),
+                title: validator.unescape(req.body.postTitle),
+                image_url: validator.unescape(req.body.imageURL),
+                user: new mongoose.Types.ObjectId(req.body.userID),
+                total_votes: Number(req.body.votes),
             }
             var opts = {
                 runValidators: true,    // if true, runs update validators on this command. Update validators validate the update operation against the model's schema
                 upsert: false,          // if true, and no documents found, insert a new document
             }
             await Submissions.findOneAndUpdate({_id: id}, {$set: incoming}, opts).exec();
-            response.status(200).json('successfully updated one collection');
-        }catch(e){error500(e,response)}
+            res.status(200).json('successfully updated one collection');
+        }catch(e){error500(e,res)}
     })
 ;
 
 router.route('/submissions/random/:amt')
-    .get(async (_,res)=>{
+    .get(async (req,res)=>{
         try{
-            assert(validator.isInt(request.body.amt, {min: 1}));
-            let amt = Number(request.body.amt);
+            assert(validator.isInt(req.params.amt, {min: 1}));
+            let amt = Number(req.params.amt);
             let submissionsList = await Submissions.find({}).lean().exec();
             assert(amt <= submissionsList.length);
             let picked = [];
             // not optimising cus too complex and not needed.
-            for(let i; i<amt; ++i){
+            for(let i=0; i<amt; ++i){
                 picked.push(randPop(submissionsList));
             }
-            response.status(200).json(picked);
-        }catch(e){error500(e,response)}
+            res.status(200).json(picked);
+        }catch(e){error500(e,res)}
     })
 ;
 
-export default { router };
+export const submissionsRoute = router;
