@@ -1,10 +1,7 @@
 import express from "express";
-import validator from "validator";
-import mongoose from "mongoose";
-import assert from "assert";
 
 import {appDb} from "../db/appDb.js";
-import {errorHandler, error500} from "../utils/errorHandler.js";
+import {error500} from "../utils/errorHandler.js";
 
 const router = express.Router();
 router.use(express.json());
@@ -35,4 +32,4 @@ router.route('/test')
         }catch(e){error500(e,res)}
     })
 
-export { router };
+export const testRoute = router;

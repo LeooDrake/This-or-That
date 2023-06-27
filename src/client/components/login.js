@@ -33,8 +33,9 @@ function renderLogin() {
         axios.post("/api/login", data)
         .then((_) => {
           renderGame();
-        }).catch((error) => {            
+        }).catch((error) => {
             errorMsg.textContent = error.response.data.message;
         });
-    });      
+    });
+    return;
 }

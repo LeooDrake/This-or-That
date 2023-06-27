@@ -1,2 +1,0 @@
-renderHeader();
-renderGame();

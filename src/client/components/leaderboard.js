@@ -1,12 +1,10 @@
-
-function renderLeaderboard() {
-    
+function renderLeaderboard() {    
     // makes header
     const page = document.getElementById("page");
     const heading = document.createElement("h3");
     heading.textContent = "Top 10 Leaderboard";
     heading.setAttribute("class", "center-heading")
-    
+
     // makes the container for the divs
     const content = document.createElement("div");
     content.classList.add("my-4")
@@ -17,23 +15,21 @@ function renderLeaderboard() {
     
     // get some data
     axios.get('/api/leaderboard').then(response =>{
-
-        const data = response.data.getLeaderboard
-        
+        const data = response.data;
         // loop inserts html plus the row class as well as a bootstrap class to make it prettier
         data.forEach(item => {
+            let submission = item.submission;
             const div = document.createElement("div");
             div.className = "row my-5";
-
             div.innerHTML = `
                     <div class="col-3" id="thumb-img">
-                        <img style="width:100px; height:auto" src="${item.url}" />
+                        <img style="width:100px; height:auto" src="${submission.image_url}" />
                     </div>
                     <div class="col-6" id="leader-title">
-                        <h3>${item.title}</h3>
+                        <h3>${submission.title}</h3>
                     </div>
                     <div class="col-3" id="leader-vote">
-                    <h3>${item.votes}</h3>
+                    <h3>${submission.total_votes}</h3>
                     </div>
             `;
             // appends the row
@@ -48,5 +44,4 @@ function renderLeaderboard() {
     // builds the page 
     page.replaceChildren(heading, errorDiv, content);
     content.replaceChildren(container);
-
-  }
+}
