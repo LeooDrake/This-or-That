@@ -5,7 +5,7 @@ import submissionsRoute from "./submissionRoute.js";
 import leaderboardRoute from "./leaderboardRoute.js";
 import loginRoute from "./loginRoute.js";
 import signupRoute from "./signupRoute.js";
-import voteRoute from "./voteRoute.js";
+import upvoteRoute from "./upvoteRoute.js";
 
 const router = express.Router();
 router.use(testRoute);
@@ -13,7 +13,7 @@ router.use(submissionsRoute);
 router.use(leaderboardRoute);
 router.use(loginRoute);
 router.use(signupRoute);
-router.use(voteRoute);
+router.use(upvoteRoute);
 
 export default { router };
 

@@ -16,7 +16,7 @@ router.use(express.urlencoded({extended: true}));
 await appDb.ready;
 const Submissions = appDb.models.Submissions;
 
-router.route('/vote/:id')
+router.route('/upvote/:id')
     .patch(async (request,response)=>{
         try{
             var id = new mongoose.Types.ObjectId(request.params.id);
