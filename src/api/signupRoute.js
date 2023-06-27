@@ -1,39 +1,33 @@
 import express from "express";
 import validator from "validator";
-import mongoose from "mongoose";
-import assert from "assert";
 import bcrypt from "bcrypt";
-
+import cookieParser from "cookie-parser";
 import {appDb} from "../db/appDb.js";
-import {errorHandler, error500} from "../utils/errorHandler.js";
-
+import {error500} from "../utils/errorHandler.js";
+/*
+    /signup
+        .POST({name, username, password})
+            Signup using provided params.
+            Params: {Required: All}
+    Params:
+        name: string
+        username: string
+        password: string
+*/
 const router = express.Router();
 router.use(express.json());
+router.use(cookieParser());
 router.use(express.urlencoded({extended: true}));
 await appDb.ready;
 const Users = appDb.models.Users;
 
-// basic get route users collection
-router.route('/users')
-    .get(async (_,response)=>{
-        try{
-            let document = await Users.find({}).exec();
-            response.status(200).json(document);
-        }
-        catch(e){error500(e,response)}
-    })
-    .post(async (request,response)=>{
-        /*
-        because this information will eventually be made by a "renderPostUsers()" SPA function
-        i think the information should be hashed by this api rather than hashed at the js form.
-        */
+router.route('/signup')
+    .post(async (req,res)=>{
         try{
             if(!request.body.name||!request.body.username||!request.body.password){
-                response.status(400).json({"message": "missing required field"});
+                response.status(400).json({"message": "missing required fields"});
                 return;
             }
-            // asserts
-            // <asserts here>
             // unescape
             let incoming = {
                 name: validator.unescape(request.body.name),
@@ -41,7 +35,7 @@ router.route('/users')
                 password: validator.unescape(request.body.password),
             }
             // dupe check
-            let document = await Users.findOne({username: request.body.username}).exec();
+            let document = await Users.where({username: request.body.username}).findOne().exec();
             if(document != null){
                 response.status(400).json({"message": "username in db"});
                 return;
@@ -58,4 +52,4 @@ router.route('/users')
     })
 ;
 
-export { router };
+export default { router };

@@ -11,6 +11,6 @@ export const port = process.env.PORT || 3001;
 export const repopulateWithDummyVals = true;
 
 // Leaderboard
-export const defaultLeaderboardNumberLimit = 5;
+export const defaultLeaderboardNumberLimit = 10;
 // https://github.com/kelektiv/node-cron
 export const cronLeaderboardUpdateInterval = '* * * * * *';

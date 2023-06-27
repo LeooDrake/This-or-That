@@ -20,8 +20,8 @@ const dummySubmissions =
         total_votes: 0
     },
     {
-        title: "Holden Barina",
-        image_url: "https://s1.cdn.autoevolution.com/images/gallery/HOLDEN-Barina-3-Doors-2899_8.jpeg",
+        title: "Mum's old Holden Barina",
+        image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/1997-2000_Holden_Barina_%28SB%29_City_3-door_hatchback_%2819794335806%29.jpg/1599px-1997-2000_Holden_Barina_%28SB%29_City_3-door_hatchback_%2819794335806%29.jpg?20151231020917",
         username: "tadyen",
         total_votes: 0
     },
@@ -72,7 +72,13 @@ const dummySubmissions =
         image_url: "https://static.simpsonswiki.com/images/3/30/Crab_Juice_Hit_%26_Run.png",
         username: "LeooDrake",
         total_votes: 0
-    }
+    },
+    {
+        title: "Balrog",
+        image_url: "https://www.denofgeek.com/wp-content/uploads/2022/10/lord-of-the-rings-of-power-balrog.jpg",
+        username: "tadyen",
+        total_votes: 0
+    },
 ];
 export async function regenDummySubmissions(){
     await appDb.ready;

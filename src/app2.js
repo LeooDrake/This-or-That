@@ -2,7 +2,7 @@ import express from "express";
 import { port } from "./config/options.js";
 
 // routers
-import {router as apiRouter} from "./api/indexRoute.js";
+import {router as apiRouter} from "./api/index.js";
 const clientRouter = express.Router();
 clientRouter.use(express.static("./src/client"));
 
