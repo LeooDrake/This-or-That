@@ -2,7 +2,7 @@
 function renderSubmissionForm(){
     // adds a heading
     let page = document.getElementById("page");
-    let heading = document.createElement("h1");
+    let heading = document.createElement("h2");
     heading.textContent = "Add Item";
     // creates sign up form!
     let form = document.createElement("form");
