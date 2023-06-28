@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-import validator from "validator";
+import {submissionsSchema} from "./submissionsSchema.js";
+import {usersSchema} from "./usersSchema.js";
 
 // Stores the top X submissions to avoid full-querying everytime.
-// 'user' is redundant as it can be inferred via submission.user
-// however it is kept here to avoid said inference and simplify things
+// submission are subdocs, so their values are populated on save only.
+// this means they may have out-dated values which is an intentional feature
 export const leaderboardSchema = new mongoose.Schema({
     rank: {
         type: Number,
@@ -14,13 +15,7 @@ export const leaderboardSchema = new mongoose.Schema({
         }
     },
     submission: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Submissions',
-        required: true
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
+        type: submissionsSchema,
         required: true
     }
 });

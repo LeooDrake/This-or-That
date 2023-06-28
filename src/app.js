@@ -1,5 +1,6 @@
 import express from "express";
 import { port } from "./config/options.js";
+import { cronUpdateLeaderboard } from "./utils/cronUpdateLeaderboard.js";
 
 // routers
 import {apiRouter} from "./api/index.js";
@@ -12,6 +13,9 @@ const app = express();
 // mount routes
 app.use("/", clientRouter);
 app.use("/api", apiRouter);
+
+// begin cronJobs
+cronUpdateLeaderboard.start();
 
 // start listening
 app.listen(port, ()=>{

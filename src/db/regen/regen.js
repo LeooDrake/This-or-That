@@ -16,3 +16,4 @@ if(repopulateWithDummyVals){
     await regenDummyLeaderboard();
 }
 appDb.db.close();
+console.log("Regenerated db.");
