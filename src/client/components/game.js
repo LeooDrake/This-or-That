@@ -7,8 +7,8 @@ function renderGame(){
     }
 
     let page = document.getElementById("page");
-    let heading = document.createElement("h3");
-    heading.textContent = "GAME OF DEADLY MORTAL KOMBAT "; // we can change this
+    let heading = document.createElement("h2");
+    heading.textContent = "WHO WOULD WIN?"; // we can change this
     heading.setAttribute("class", "center-heading");
     // creates wrapper
     let content = document.createElement("div");
@@ -22,12 +22,18 @@ function renderGame(){
         <div class="container">
             <div class="row">
                 <div class="col-5" id="this">
-                    <a href="/api/upvote/${thisImg._id}"><img class="img-size" src=${thisImg.image_url} id="${thisImg._id}")" /></a>
+                    <a href="/api/upvote/${thisImg._id}"><img class="img-size img-left" src=${thisImg.image_url} id="${thisImg._id}")" /></a>
+                </div>
+                <div class="col-2 center-heading vs">VS</div>
+                <div class="col-5" id="that">
+                <a href="/api/upvote/${thatImg._id}"><img class="img-size img-right" src=${thatImg.image_url} id="${thatImg._id}")" /></a>    
+                </div>
+            <div class="row">
+                <div class="col-5 text-left" id="this">
                     <h2>${thisImg.title}</h2>
                 </div>
-                <div class="col-2"><p>VS</p></div>
-                <div class="col-5" id="that">
-                <a href="/api/upvote/${thatImg._id}"><img class="img-size" src=${thatImg.image_url} id="${thatImg._id}")" /></a>    
+                <div class="col-2"></div>
+                <div class="col-5 text-right" id="that">
                     <h2>${thatImg.title}</h2>
                 </div>
             </div>

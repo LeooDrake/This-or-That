@@ -1,9 +1,8 @@
 function renderLeaderboard() {    
     // makes header
     const page = document.getElementById("page");
-    const heading = document.createElement("h3");
+    const heading = document.createElement("h2");
     heading.textContent = "Top 10 Leaderboard";
-    heading.setAttribute("class", "center-heading")
 
     // makes the container for the divs
     const content = document.createElement("div");
