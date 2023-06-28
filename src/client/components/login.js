@@ -1,6 +1,6 @@
 function renderLogin() {
     let page = document.getElementById("page");
-    let heading = document.createElement("h1");
+    let heading = document.createElement("h2");
     heading.textContent = "Login";
     
 

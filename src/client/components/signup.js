@@ -2,7 +2,7 @@ function renderSignUpForm() {
   
   //signup page heading and form
   const page = document.getElementById("page");
-  const heading = document.createElement("h1");
+  const heading = document.createElement("h2");
   heading.textContent = "Signup";
   const form = document.createElement("form");
   form.innerHTML = `

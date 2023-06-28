@@ -1,16 +1,32 @@
 {
   "type": "module",
   "name": "this-or-that",
-  "version": "1.0.0",
+  "author": "Leo,Alex & Justin",
+  "license": "MIT",
   "description": "An express app project by Leo, Alex and Justin.",
+  "version": "1.0.0",
   "main": "./src/app.js",
   "scripts": {
     "start": "node ./src/app.js",
     "startmon": "nodemon ./src/app.js",
     "regendb": "node ./src/db/regen/regen.js"
   },
-  "author": "Leo,Alex & Justin",
-  "license": "MIT",
+  "nodemonConfig": {
+    "ext": "js,json",  
+    "verbose": true,
+    "events": {
+      "restart": "cls || clear"
+    },
+    "watch": [
+      ".env",
+      "src"
+    ],
+    "ignore": [
+      ".git",
+      "node_modules",
+      "project_brief"
+    ]
+  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
