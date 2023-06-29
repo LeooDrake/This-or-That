@@ -40,10 +40,22 @@ router.route('/login')
                 console.log("user authenticated!!");
                 // set a cookie with the user ID
                 // res.cookie('UserID', user._id).send('cookie set');
-                let data = {
-                    "_id":user._id
-                }
-                axios.post('/api/session',data) // STARTING APIII
+                //  let data = {
+                //     "_id":user._id
+                // }         
+
+                // let instance = axios.create({  proxy: {
+                //     protocol: 'http',
+                //     host: '127.0.0.1',
+                //     // hostname: '127.0.0.1' // Takes precedence over 'host' if both are defined
+                //     port: 3001,
+
+                //   }})
+                // instance.post('/api/session',data).
+
+                req.session._id =user._id // think this is correct but may just be the data that its being called with is wrong
+                res.json({message:"cookie set"})
+                // then(res.json({"message": 'cookie maybe'})) // STARTING APIII
             }else{
                 res.status(401).json({message: "Invalid username or password combination." });
             }

@@ -29,6 +29,7 @@ function renderLogin() {
             username: formData.get("username"),
             password: formData.get("password"),
         };
+        console.log(data)
         
         // send it! (to the api, that is)
         axios.post("/api/login", data)
