@@ -2,7 +2,6 @@ import express from "express";
 import session from "express-session";
 // import {appDb} from "../db/appDb.js";
 // import {error500} from "../utils/errorHandler.js";
-import axios from "axios";
 /*
 Cookie parser occurs browserside and is stored locally which is bad security practice because 
 someone could edit their own cookie therefore editing someone elses account information.
@@ -16,7 +15,10 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/session',(request,response)=>{
-    request.session._id =request.body._id;
+    console.log('request body below')
+    console.log(request.body)
+    console.log(request.session)
+    request.session._id =request.body._id; // think this is correct but may just be the data that its being called with is wrong
     response.json({message:"cookie set"})
 })
 
