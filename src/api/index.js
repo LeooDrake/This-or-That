@@ -17,18 +17,19 @@ import { appDb } from "../db/appDb.js";
 const router = express.Router();
 
 // session store
+// https://github.com/jdesboeufs/connect-mongo/blob/master/example/mongoose.js
 router.use(
     session({
         secret: sessionSecretKey,
-        resave: true,
-        saveUninitialized: true,
-        cookie: { maxAge: 19 * 60000 }, // store for 19 minutes
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 5 * 60 * 1000 }, // store for 5 mins
         store: MongoStore.create({
-            client: appDb.db.getClient()
+            client: appDb.db.getClient(),
+            dbName: dbName
         })
     })
 );
-
 router.use(testRoute);
 router.use(submissionsRoute);
 router.use(leaderboardRoute);
