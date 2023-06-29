@@ -7,7 +7,7 @@ function renderNav(){
             <a class="btn btn-info mx-2 nav-button" href="#" onClick="renderLogin()">LOG IN</a>
             <a class="btn btn-info mx-2 nav-button" href="#" onClick="renderAbout()">ABOUT</a>
             <a class="btn btn-info mx-2 nav-button" href="#" onClick="renderLeaderboard()">LEADERBOARD</a>
-            <a class="btn btn-info mx-2 nav-button" href="#" onClick="DoUserProfile()">PROFILE</a>
+            <a class="btn btn-info mx-2 nav-button" href="#" onClick="renderProfile()">PROFILE</a>
             <a class="btn btn-info mx-2 nav-button" href="#" onClick="renderSignUpForm()">SIGN UP</a>
             <a class="btn btn-info mx-2 nav-button" href="#" onClick="logoutSite()">LOG OUT</a>
         </div>

@@ -22,11 +22,11 @@ function renderGame(){
         <div class="container">
             <div class="row">
                 <div class="col-5" id="this">
-                    <a href="/api/upvote/${thisImg._id}"><img class="img-size img-left" src=${thisImg.image_url} id="${thisImg._id}")" /></a>
+                    <img class="img-size img-left" src=${thisImg.image_url} id="${thisImg._id}")" />
                 </div>
                 <div class="col-2 center-heading vs">VS</div>
                 <div class="col-5" id="that">
-                <a href="/api/upvote/${thatImg._id}"><img class="img-size img-right" src=${thatImg.image_url} id="${thatImg._id}")" /></a>    
+                    <img class="img-size img-right" src=${thatImg.image_url} id="${thatImg._id}")" />    
                 </div>
             <div class="row">
                 <div class="col-5 text-left" id="this">
@@ -39,10 +39,34 @@ function renderGame(){
             </div>
         </div>
         `;
+        let errorDiv = document.createElement("div");
+        errorDiv.classList.add("my-4");
+    
+    
+        page.replaceChildren(heading, errorDiv, content);
+        /*
+        I had to move the api which was in the HREF
+        because when image was clicked user was being redirected to the api.
+
+
+        */
+        document.querySelectorAll('img').forEach(element =>{
+            element.addEventListener(('click'),(event)=>{
+                console.log('click')
+                console.log(event.target.id)
+                axios.get(`/api/upvote/${event.target.id}`)
+            })
     })
     // was gonna put an errorbox but its not needed (since errors would appear on diff screen)  
-    let errorDiv = document.createElement("div");
-    errorDiv.classList.add("my-4");
-    page.replaceChildren(heading, errorDiv, content);
+
+    
+
+    
+    
+    })
+
+
+        
+
     return;
 }
