@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import validator from "validator";
 import bcrypt from "bcrypt";
+import axios from "axios";
 import {appDb} from "../db/appDb.js";
 import {error500} from "../utils/errorHandler.js";
 /*
@@ -38,7 +39,11 @@ router.route('/login')
             if(ok){
                 console.log("user authenticated!!");
                 // set a cookie with the user ID
-                res.cookie('UserID', user._id).send('cookie set');
+                // res.cookie('UserID', user._id).send('cookie set');
+                let data = {
+                    "_id":user._id
+                }
+                axios.post('/api/session',data) // STARTING APIII
             }else{
                 res.status(401).json({message: "Invalid username or password combination." });
             }

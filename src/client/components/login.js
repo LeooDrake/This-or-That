@@ -2,6 +2,7 @@ function renderLogin() {
     let page = document.getElementById("page");
     let heading = document.createElement("h2");
     heading.textContent = "Login";
+    
 
     // builds a login form
     let form = document.createElement("form");
