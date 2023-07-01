@@ -1,8 +1,8 @@
-
 import express from "express";
 import mongoose from "mongoose";
 import {appDb} from "../db/appDb.js";
 import {error500} from "../utils/errorHandler.js";
+import { setFlagLeaderboardPendingRefresh } from "../utils/setFlagLeaderboardPendingRefresh.js";
 /*
     /vote/:id
         .GET({})
@@ -23,6 +23,7 @@ router.route('/upvote/:id')
             let submission = await Submissions.where({_id: id}).findOne().exec();
             submission.total_votes = Number(submission.total_votes) + 1;
             await submission.save();
+            await setFlagLeaderboardPendingRefresh(true);
             res.status(200).json({'message':`successfully upvoted ${req.params.id}`});
         }catch(e){error500(e,res)}
     })

@@ -3,6 +3,7 @@ import validator from "validator";
 import mongoose from "mongoose";
 import assert from "assert";
 import {appDb} from "../db/appDb.js";
+import { setFlagLeaderboardPendingRefresh } from "../utils/setFlagLeaderboardPendingRefresh.js"
 import {error500} from "../utils/errorHandler.js";
 /*
     /submissions
@@ -72,6 +73,7 @@ router.route('/submissions')
             }
             let submission = new Submissions(imageData);
             await submission.save();
+            await setFlagLeaderboardPendingRefresh(true);
             res.status(200).json({"message": "submission success"})
         }catch(e){error500(e,res)}
     })
@@ -83,9 +85,10 @@ router.route('/submissions/:id')
             let id = new mongoose.Types.ObjectId(req.params.id);
             let result = await Submissions.findOneAndDelete({ _id: id}).exec();
             if(result == null){
-                res.status(400).json('failed to delete submission')
+                res.status(400).json('failed to delete submission');
             }else{
-                res.status(200).json('successfully deleted submission')
+                await setFlagLeaderboardPendingRefresh(true);
+                res.status(200).json('successfully deleted submission');
             }
         }catch(e){error500(e,res)}
     })
@@ -107,6 +110,7 @@ router.route('/submissions/:id')
                 upsert: false,          // if true, and no documents found, insert a new document
             }
             await Submissions.findOneAndUpdate({_id: id}, {$set: incoming}, opts).exec();
+            await setFlagLeaderboardPendingRefresh(true);
             res.status(200).json('successfully updated one collection');
         }catch(e){error500(e,res)}
     })

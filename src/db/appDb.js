@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import {dbName, dbConnectionString} from "../config/options.js";
 // Schemas
-import {usersSchema} from "./schema/usersSchema.js";
-import {submissionsSchema} from "./schema/submissionsSchema.js";
-import {leaderboardSchema} from "./schema/leaderboardSchema.js";
-import {testSchema} from "./schema/testSchema.js";
+import { usersSchema } from "./schema/usersSchema.js";
+import { submissionsSchema } from "./schema/submissionsSchema.js";
+import { leaderboardSchema } from "./schema/leaderboardSchema.js";
+import { flagsSchema } from "./schema/flagsSchema.js";
+import { testSchema } from "./schema/testSchema.js";
 
 class DbConn{
     constructor(){
@@ -32,7 +33,8 @@ class AppDb extends DbConn{
             Test: this.db.model('Test', testSchema),
             Users: this.db.model('Users', usersSchema),
             Submissions: this.db.model('Submissions', submissionsSchema),
-            Leaderboard: this.db.model('Leaderboard', leaderboardSchema)
+            Leaderboard: this.db.model('Leaderboard', leaderboardSchema),
+            Flags: this.db.model('Flags', flagsSchema)
         }
     }
 }
