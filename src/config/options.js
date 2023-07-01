@@ -15,7 +15,7 @@ export const defaultLeaderboardAmt = 0;    // 0 for no-limit, rank everything
 
 // https://github.com/kelektiv/node-cron
 // Cron??: https://www.geeksforgeeks.org/writing-cron-expressions-for-scheduling-tasks/
-export const cronLeaderboardUpdateInterval = '*/5 * * * * *';     // start of every minute
+export const cronLeaderboardUpdateInterval = '*/30 * * * * *';     // start of every minute
 
 //session secret
 export const sessionSecretKey = process.env.EXPRESS_SESSION_SECRET_KEY;

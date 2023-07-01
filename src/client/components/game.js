@@ -6,11 +6,9 @@ function renderGame(){
             console.log(`session id:${response.data._id}`)
         }
         else{
-            console.log('no session found')                 // have we implemented logic so that you cant vote if you are signed in or are we ignoring for now?
+            console.log('no session found')     // have we implemented logic so that you cant vote if you are signed in or are we ignoring for now?
         }   
     })
-
-
     let page = document.getElementById("page");
     let heading = document.createElement("h2");
     heading.textContent = "WHO WOULD WIN?"; // we can change this
@@ -46,32 +44,15 @@ function renderGame(){
         `;
         let errorDiv = document.createElement("div");
         errorDiv.classList.add("my-4");
-    
-    
         page.replaceChildren(heading, errorDiv, content);
-        /*
-        I had to move the api which was in the HREF
-        because when image was clicked user was being redirected to the api.
-
-
-        */
         document.querySelectorAll('img').forEach(element =>{
             element.addEventListener(('click'),(event)=>{
-                console.log('click')
-                console.log(event.target.id)
-                axios.get(`/api/upvote/${event.target.id}`)
+                console.log(`upvoted: ${event.target.id}`);
+                axios.get(`/api/upvote/${event.target.id}`);
+                renderGame();
+                return;
             })
+        })
     })
-    // was gonna put an errorbox but its not needed (since errors would appear on diff screen)  
-
-    
-
-    
-    
-    })
-
-
-        
-
     return;
 }
