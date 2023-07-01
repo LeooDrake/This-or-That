@@ -6,17 +6,17 @@ const dummyUsers =
     {
         name: "Alex",
         username: "tadyen",
-        password: "supersecretpassword",
+        password: "asdf",
     },
     {
         name: "Justin",
         username: "jlabruna",
-        password: "supersecretpassword",
+        password: "asdf",
     },
     {
         name: "Leo",
         username: "LeooDrake",
-        password: "supersecretpassword",
+        password: "asdf",
     }
 ];
 
