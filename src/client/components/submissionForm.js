@@ -41,9 +41,9 @@ function renderSubmissionForm(){
             userID: formData.get("id") // Do something to grab the userID from the cookie.
         };
         // api send
-        axios.post("/submissions", data).then((_) => {
+        axios.post("/api/submissions", data).then((_) => {
             renderHeader();
-            renderGame(); 
+            renderGame();
             console.log("you have posted summin new");
         });
     });      
