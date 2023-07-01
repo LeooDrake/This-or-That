@@ -1,8 +1,9 @@
 function renderAbout(){
     let page = document.getElementById("page");
-    let heading = document.createElement("h1");
+    let heading = document.createElement("h2");
     heading.textContent = "About this page";
-    let about = document.createElement("about");
+    let about = document.createElement("div");
+    about.classList.add("about");
     about.innerHTML = 
     `
     <p>Our website was born out of a long and hard journey that three indie developers embarked on. We faced many challenges along the way, but our passion for creating something unique and valuable kept us going. We wanted to create a platform that would make a difference in people's lives, and we knew that it would take a lot of hard work and dedication to achieve our goal.</p>

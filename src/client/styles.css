@@ -1,37 +1,35 @@
 body{
+    font-family: 'Permanent Marker', cursive;
     background-image: url("https://i.redd.it/jbut5yiy0b461.gif");
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: fixed;
     background-attachment: fixed;
-    
+    background-color: #2a003f;   
 }
-
 .navbar {
    margin: auto;
 }
-
 .nav-button {
     text-align: center;
     align-items: center;
 }
-
-.vs {
-    font-size: 100px;
+.vs{
+    font-size: 120px;
     line-height: 300px;
     color: #fff;
     text-shadow:
-      0 0 7px #fff,
-      0 0 10px #fff,
-      0 0 21px #fff,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      0 0 92px #0fa,
-      0 0 102px #0fa,
-      0 0 151px #0fa;
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #0fa,
+        0 0 82px #0fa,
+        0 0 92px #0fa,
+        0 0 102px #0fa,
+        0 0 151px #0fa
+    ;
 }
-
-h1 {
+h1{
     text-align: center;
     font-size: 70px;
     font-weight: 600;
@@ -39,138 +37,121 @@ h1 {
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
-  }
-
-section {
-   color: grey;
-   text-shadow: 0 0 1px #000;
 }
-
+section{
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 8px #2a003f;
+    text-align: center;
+    width: 80vw;
+    margin: 0 auto;
+}
+h2{     
+    color: rgb(255, 255, 255);
+    text-shadow: 
+        0 0 2px #000,
+        0 0 4px #2e0052,
+        0 0 8px #8600c0,
+        0 0 16px #ab00d2,
+        0 0 32px #f2b9ff
+    ;
+}
+.row{
+   align-items: center;
+}
+.about > p{
+    font-size: 1.2em;
+}
 .center-heading {
     text-align: center;
-
 }
-
-
-.img-size {
+.imgOuter{
+    height: 420px;
+    align-items: center;
+    transition: all 0.15s ease-in-out;
+}
+.img-size{  
+    margin: 0 auto;
+    transform: translateY(40%);
     width: auto;
-    height: 300px;
+    height: 60%;
     transition: all 0.25s ease-in-out;
 }
-
 .img-left {
-    float: right;
-    display: block;
-}
-
-.img-right {
-    float: left;
-}
-
-
-.text-left {
-    text-align: right;
-}
-
-.text-right {
-    text-align: left;
-
-}
-
-.img-size:hover {
-    transform: scale(1.2, 1.2);
-    cursor: pointer;
-    /* border-style: outset;
-    border-width: thick; */
-    /* border-color: greenyellow; */
-    /* border-image: conic-gradient(transparent, #f00);*/
-    /* animation: spin2win 2s linear infinite, anim 10s infinite; */
-    animation: anim 10s infinite;
-
+    animation: animBlob 20s infinite;
     border-radius: 30% 70% 53% 47% / 26% 46% 54% 74%;
-	box-shadow: 0 -2px 4px gold, 0 1px 4px orange inset,
+	box-shadow: 
+        0 -2px 4px gold, 
+        0 1px 4px orange inset,
 		0 -2px 7px red;
 	content: "";
-	filter: drop-shadow(0 0 3px gold) drop-shadow(0 5px 4px orangered)
+	filter: 
+        drop-shadow(0 0 3px gold) 
+        drop-shadow(0 5px 4px orangered)
 		drop-shadow(2px -2px 7px orange)
-		drop-shadow(0 0 7px red);
+		drop-shadow(0 0 7px red)
+    ;
 }
-
-@keyframes spin2win
-{ 
-    0%
-    {
-        transform: rotate(0deg);
-
-    }
-
-    100%
-    {
-        transform: rotate(180deg);
-
-    }
-    0%
-    {
-        transform: rotate(0deg);
-
-    }
-
-	0% {
-		transform: rotate(0deg);
-	}
-
-	75% {
-		transform: rotate(180deg);
-
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
-} 
-
-
-    
-
-
-@keyframes anim { 
+.img-right {
+    animation: animBlob 20s infinite;
+    animation-delay: -7s;
+    border-radius: 30% 70% 53% 47% / 26% 46% 54% 74%;
+	box-shadow: 
+        0 -2px 4px cyan, 
+        0 1px 4px dodgerblue inset,
+		0 -2px 7px blue;
+	content: "";
+	filter: 
+        drop-shadow(0 0 3px cyan) 
+        drop-shadow(0 5px 4px royalblue)
+		drop-shadow(2px -2px 7px dodgerblue)
+		drop-shadow(0 0 7px blue)
+    ;
+}
+.imgTitleRow{
+    margin: 30px 0px 0px 0px;
+}
+.text-left {
+    text-align: center;
+}
+.text-right {
+    text-align: center;
+}
+.imgOuter:hover{
+    transform: scale(1.2, 1.2);
+    cursor: pointer;
+    background-image: url("./media/lightning.gif");
+    background-size: cover;
+    background-repeat: repeat;
+}
+@keyframes animBlob { 
 	0%,
 	100% {
 		border-radius: 30% 70% 70% 30% / 30% 52% 48% 70%;
 	}
-
 	10% {
 		border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%;
 	}
-
 	20% {
 		border-radius: 67% 33% 47% 53% / 37% 20% 80% 63%;
 	}
-
 	30% {
 		border-radius: 39% 61% 47% 53% / 37% 40% 60% 63%;
 	}
-
 	40% {
 		border-radius: 39% 61% 82% 18% / 74% 40% 60% 26%;
 	}
-
 	50% {
 		border-radius: 100%;
 	}
-
 	60% {
 		border-radius: 50% 50% 53% 47% / 72% 69% 31% 28%;
 	}
-
 	70% {
 		border-radius: 50% 50% 53% 47% / 26% 22% 78% 74%;
 	}
-
 	80% {
 		border-radius: 50% 50% 53% 47% / 26% 69% 31% 74%;
 	}
-
 	90% {
 		border-radius: 20% 80% 20% 80% / 20% 80% 20% 80%;
 	}
