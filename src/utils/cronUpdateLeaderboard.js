@@ -12,10 +12,7 @@ export const cronUpdateLeaderboard = new cron.CronJob(
             await appDb.ready;
             let flag = await appDb.models.Flags.findOne({name: flagNames.leaderboardPendingRefresh}).exec();
             if(flag.flag){
-                let ok = await refreshLeaderboard();
-                if(ok != true){
-                    throw new Error(`${hhmmss} Cron: failed call refreshLeaderboard()`)
-                }
+                await refreshLeaderboard();
                 flag.flag = false;
                 await flag.save();
                 console.log(`${hhmmss} Cron: Refreshed leaderboard.`);

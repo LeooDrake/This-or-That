@@ -18,4 +18,4 @@ export const leaderboardSchema = new mongoose.Schema({
         type: submissionsSchema,
         required: true
     }
-});
+}, {autoIndex: false});
