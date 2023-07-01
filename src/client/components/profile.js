@@ -64,6 +64,7 @@ async function renderProfile(){
                 // <img src="${collection.image_url}">
                 // `
             }
+        })
             page.replaceChildren(container)
             page.querySelectorAll('button').forEach(button =>{
                 button.addEventListener('click',(event)=>{
@@ -76,7 +77,7 @@ async function renderProfile(){
             
             
         
-        })
+        
 
 
     }catch (error) {

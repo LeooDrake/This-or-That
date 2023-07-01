@@ -1,6 +1,8 @@
 function logoutSite() {
     axios.delete('/api/session').
     then(response =>{
+        renderNav()
+        renderGame()
         console.log('session ended')
     })
 
