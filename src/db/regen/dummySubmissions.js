@@ -1,4 +1,7 @@
 import { appDb } from "../appDb.js";
+
+
+// slightly confused why theres no user id in the submissions but there is in the add submission post route in the api
 const dummySubmissions =
 [
     {

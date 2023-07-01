@@ -1,5 +1,4 @@
 import express from "express";
-import session from "express-session";
 // import {appDb} from "../db/appDb.js";
 // import {error500} from "../utils/errorHandler.js";
 /*
@@ -24,7 +23,7 @@ router.post('/session',(request,response)=>{
 
 router.get('/session',(request,response)=>{
     if(request.session._id){
-        response.json({'session': true})
+        response.json({'session': true, '_id':request.session._id})
     }
     else {
         response.json({'session': false})
