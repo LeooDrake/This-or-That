@@ -19,3 +19,8 @@ export const cronLeaderboardUpdateInterval = '*/30 * * * * *';     // start of e
 
 //session secret
 export const sessionSecretKey = process.env.EXPRESS_SESSION_SECRET_KEY;
+
+// Flag names for flagsSchema
+export const flagNames = {
+  leaderboardPendingRefresh: 'leaderboardPendingRefresh'
+}
