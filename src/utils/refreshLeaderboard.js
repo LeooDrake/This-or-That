@@ -26,12 +26,21 @@ export async function refreshLeaderboard(amt=defaultLeaderboardAmt){
             rank += 1;
         })
         // erase and replace with new entries into db
+        // all this extra stuff is just to time deleteMany and timeout 
+        // by that much to hopefully allow deleteMany to fully complete
+        let t0 = performance.now();
         await appDb.models.Leaderboard.deleteMany({}).exec();
+        let t1 = performance.now();
+        let waitTimeMs = Math.floor(t1-t0);
+        await new Promise((resolve,reject)=>{
+            setTimeout(() => {
+                console.log(`Leaderboard: awaited extra ${waitTimeMs}ms to allow deleteMany to fully complete.`)
+                resolve(true);
+            }, waitTimeMs);
+        })
         await appDb.models.Leaderboard.insertMany(newEntries);
         return true;
     }catch(e){
         errorHandler(e,false);
-        console.error("New entries:");
-        console.error(newEntries);
     }
 }

@@ -12,7 +12,7 @@
     "regendb": "node ./src/db/regen/regen.js"
   },
   "nodemonConfig": {
-    "ext": "js,json",
+    "ext": "js,json,html,css",
     "verbose": true,
     "events": {
       "restart": "cls || clear"

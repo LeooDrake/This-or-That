@@ -2,7 +2,7 @@ function renderLeaderboard() {
     // makes header
     const page = document.getElementById("page");
     const heading = document.createElement("h2");
-    heading.textContent = "Top 10 Leaderboard";
+    heading.textContent = "Leaderboard";
 
     // makes the container for the divs
     const content = document.createElement("div");
@@ -25,7 +25,7 @@ function renderLeaderboard() {
                         <img style="width:100px; height:auto" src="${submission.image_url}" />
                     </div>
                     <div class="col-6" id="leader-title">
-                        <h3>${submission.title}</h3>
+                        <h4>${submission.title}</h4>
                     </div>
                     <div class="col-3" id="leader-vote">
                     <h3>${submission.total_votes}</h3>
