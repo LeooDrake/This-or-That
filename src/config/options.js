@@ -11,6 +11,11 @@ export const port = process.env.PORT || 3001;
 export const repopulateWithDummyVals = true;
 
 // Leaderboard
-export const defaultLeaderboardNumberLimit = 10;
+export const defaultLeaderboardAmt = 0;    // 0 for no-limit, rank everything
+
 // https://github.com/kelektiv/node-cron
-export const cronLeaderboardUpdateInterval = '* * * * * *';
+// Cron??: https://www.geeksforgeeks.org/writing-cron-expressions-for-scheduling-tasks/
+export const cronLeaderboardUpdateInterval = '0 * * * * *';     // start of every minute
+
+//session secret
+export const sessionSecretKey = process.env.EXPRESS_SESSION_SECRET_KEY;

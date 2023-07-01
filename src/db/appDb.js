@@ -38,5 +38,5 @@ class AppDb extends DbConn{
 }
 
 const appDb = new AppDb();
-await appDb.connected;
+await appDb.ready;
 export { appDb };
