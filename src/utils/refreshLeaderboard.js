@@ -1,4 +1,5 @@
 import assert from "assert";
+import { performance } from "perf_hooks";
 import { appDb } from "../db/appDb.js";
 import {defaultLeaderboardAmt} from "../config/options.js";
 import { errorHandler } from "./errorHandler.js";
