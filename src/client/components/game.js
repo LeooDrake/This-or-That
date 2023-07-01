@@ -1,10 +1,15 @@
 function renderGame(){
     //document.cookie displays existing cookie, this is a test to see if they are logged in
-    if(document.cookie){
-        console.log("The cookie is: " + document.cookie)
-    }else{
-        console.log("come to the Light Side, we don't have cookies") // no cookie found
-    }
+    axios.get('/api/session').then
+    (response =>{
+        if(response.data.session){
+            console.log(`session id:${response.data._id}`)
+        }
+        else{
+            console.log('no session found')                 // have we implemented logic so that you cant vote if you are signed in or are we ignoring for now?
+        }   
+    })
+
 
     let page = document.getElementById("page");
     let heading = document.createElement("h2");

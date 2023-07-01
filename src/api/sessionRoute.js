@@ -24,7 +24,7 @@ router.route('/session')
     })
     .get((request,response)=>{
         if(request.session._id){
-            response.json({'session': true})
+            response.json({'session': true,'_id':request.session._id})
         }
         else {
             response.json({'session': false})

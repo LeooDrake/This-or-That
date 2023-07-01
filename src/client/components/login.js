@@ -34,10 +34,13 @@ function renderLogin() {
         // send it! (to the api, that is)
         axios.post("/api/login", data)
         .then((_) => {
-          renderGame();
+        renderNav()
+
+
         }).catch((error) => {
             errorMsg.textContent = error.response.data.message;
         });
     });
+    // renderGame();
     return;
 }

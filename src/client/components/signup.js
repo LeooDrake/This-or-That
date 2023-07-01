@@ -36,6 +36,7 @@ function renderSignUpForm() {
       // another axios send
       axios.post("/api/signup", data)
       .then((_) => {
+        renderNav()
         renderGame();
       }).catch((error) => {            
           errorMsg.textContent = error.response.data.message;

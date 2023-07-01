@@ -63,7 +63,7 @@ router.route('/submissions')
             }
             // asserts
             assert(validator.isURL(req.body.imageURL));
-            // unescape:
+            // unescape:                                    // confused why this doesnt match dummy data
             let imageData = {
                 "title": validator.unescape(req.body.postTitle),
                 "image_url": validator.unescape(req.body.imageURL),
